@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+
 public class MainManager : MonoBehaviour
 {
     public Brick BrickPrefab;
@@ -11,7 +12,7 @@ public class MainManager : MonoBehaviour
     public Rigidbody Ball;
 
     public Text ScoreText;
-    private string userName;
+    //private string userName;
     public Text bestScoreText;
     public GameObject GameOverText;
     
@@ -38,6 +39,11 @@ public class MainManager : MonoBehaviour
                 brick.onDestroyed.AddListener(AddPoint);
             }
         }
+        ShowBestScoreText();
+    }
+
+    void ShowBestScoreText()
+    {
         bestScoreText.text = "Best score: " + StartManager.Instance.userData.userName + ": " + StartManager.Instance.userData.highScore.ToString();
     }
 
@@ -72,8 +78,9 @@ public class MainManager : MonoBehaviour
         if (m_Points > StartManager.Instance.userData.highScore)
         {
             StartManager.Instance.userData.highScore = m_Points;
-            StartManager.Instance.userData.userName = userName;
+            StartManager.Instance.userData.userName = StartManager.Instance.userName;
             StartManager.Instance.SaveHigh();
+            ShowBestScoreText();
         }
     }
 

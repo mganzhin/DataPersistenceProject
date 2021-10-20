@@ -21,6 +21,7 @@ public class StartManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        userData = new SaveData();
         Instance = this;
         DontDestroyOnLoad(gameObject);
         LoadHigh();
@@ -54,8 +55,13 @@ public class StartManager : MonoBehaviour
 
             userData.userName = data.userName;
             userData.highScore = data.highScore;
-            bestScoreText.text = "Best score: " + userData.userName + ": " + userData.highScore.ToString();
+        } else
+        {
+            userData.userName = userName;
+            userData.highScore = 0;
+            SaveHigh();
         }
+        bestScoreText.text = "Best score: " + userData.userName + ": " + userData.highScore.ToString();
     }
 
 }
